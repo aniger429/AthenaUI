@@ -8,6 +8,10 @@ def home():
 @app.route('/datacleaning')
 def datacleaning():
     return render_template("datacleaning.html")
+@app.route('/chart-view')
+def chartView():
+    return render_template("chart-view.html")
+
 
 
 if __name__ == '__main__':

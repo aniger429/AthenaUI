@@ -1,43 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="row">
+    <div name="import_file" class="col-md-2">
+        <button type="button" class="btn btn-info">
+            <span class="glyphicon glyphicon-plus"></span>  Upload Data File
+        </button>
+    </div>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">Election Data</h4>
+                <p class="category">Here are all the election data uploaded</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+                <table class="table table-striped">
+                    <thead>
+                        <th class="col-md-1">ID</th>
+                        <th class="col-md-5">Filename</th>
+                        <th class="col-md-1">Size</th>
+                        <th class="col-md-2">Number of rows</th>
+                        <th class="col-md-1">Remarks</th>
+                        <th class="col-md-2">Actions</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Election Data-1</td>
+                            <td>367kb</td>
+                            <td>10000</td>
+                            <td>Clean</td>
+                            <td>
+                                <button type="button" class="btn btn-info">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-<div name="import_file" class="col-md-2">
-    <button type="button" class="btn btn-info">
-        <span class="glyphicon glyphicon-plus"></span>  Upload Data File
-    </button>
-</div>
-<div class="col-md-12">
-    <div class="card">
-        <div class="header">
-            <h4 class="title">Election Data</h4>
-            <p class="category">Here are all the election data uploaded</p>
-        </div>
-        <div class="content table-responsive table-full-width">
-            <table class="table table-striped">
-                <thead>
-                    <th class="col-md-1">ID</th>
-                    <th class="col-md-5">Filename</th>
-                    <th class="col-md-1">Size</th>
-                    <th class="col-md-2">Number of rows</th>
-                    <th class="col-md-1">Remarks</th>
-                    <th class="col-md-2">Actions</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Election Data-1</td>
-                        <td>367kb</td>
-                        <td>10000</td>
-                        <td>Clean</td>
-                        <td>
-                            <button type="button" class="btn btn-info">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
+            </div>
         </div>
     </div>
 </div>
