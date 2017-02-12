@@ -17,17 +17,20 @@
 
     <!--  Paper Dashboard core CSS    -->
     <link href="{{ url_for('static', filename="css/paper-dashboard.css") }}" rel="stylesheet"/>
+    {%block customCSS%}
+    {%endblock%}
 
     <!--  Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
-    <link href="assets/css/themify-icons.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename="css/themify-icons.css") }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename="css/font-awesome.css") }}" rel="stylesheet" >
 
 </head>
 <body>
 
 <div class="wrapper">
-	<div class="sidebar" data-background-color="white" data-active-color="#ee123f">
+	<div class="sidebar" data-background-color="black" data-active-color="#ee123f">
 
     <!--
 		Tip 1: you can change the color of the sidebar's background using: data-background-color="white | black"
@@ -43,15 +46,15 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.html">
-                        <i class="ti-pie-chart"></i>
-                        <p>Dashboard</p>
+                    <a href="{{url_for('datacleaning')}}">
+                        <i class="fa fa-folder fa-lg fa-fw"></i>
+                        <p>Data</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="dashboard.html">
-                        <i class="ti-pie-chart"></i>
-                        <p>pwet</p>
+                    <a href="analysis.html">
+                        <i class="fa fa-line-chart fa-lg fa-fw"></i>
+                        <p>Analysis</p>
                     </a>
                 </li>
 
@@ -69,11 +72,13 @@
                         <span class="icon-bar bar2"></span>
                         <span class="icon-bar bar3"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <p class="navbar-brand">
+                        {%block name%}
+                        {%endblock%}</p>
                 </div>
             </div>
         </nav>
-        <div class="content" data-background-color="black">
+        <div class="content" data-background-color="white">
             <div class="container-fluid">
                     {%block content%}
                     {%endblock%}
@@ -93,7 +98,7 @@
                     </ul>
                 </nav>
 				<div class="copyright pull-right">
-                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>
+                    &copy; <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart fa-lg fa-spin fa-fw text-danger"></i>
                 </div>
             </div>
         </footer>
@@ -117,4 +122,6 @@
     <!-- Paper Dashboard Core javascript and methods for Demo purpose -->
 	<script src="{{ url_for('static', filename="js/paper-dashboard.js") }}" ></script>
 
+    {%block customJS%}
+    {%endblock%}
 </html>
