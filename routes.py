@@ -2,6 +2,8 @@ import pandas as pd
 from flask import Flask, render_template, send_from_directory
 from controllers import uploadFile
 import os
+from DBModels.Data import *
+
 # Initialize the Flask application
 app = Flask(__name__)
 # This is the path to the upload directory
@@ -9,24 +11,17 @@ app.config['UPLOAD_FOLDER'] = 'data/'
 # These are the extension that we are accepting to be uploaded
 app.config['ALLOWED_EXTENSIONS'] = set(['csv', 'xls', 'xlsx'])
 
-
 @app.route('/')
 def home():
     return render_template("base.html")
 
 @app.route('/datacleaning')
 def datacleaning():
-    return render_template("datacleaning.html")
+    return render_template("datacleaning.html", dataFileList = getAllData())
 
 @app.route('/chart-view')
 def chartView():
     return render_template("chart-view.html")
-
-# @app.route('/test')
-# def displayTable():
-#     data = pd.read_excel('/home/dudegrim/Google Drive/Thesis/Election Data/Election-18.xlsx')
-#     return render_template('test.html', tables=[data.to_html()],
-#                            titles=['na', 'Tweetsss'])
 
 @app.route('/test')
 def displayTable():

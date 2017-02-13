@@ -6,6 +6,7 @@ import os
 # browser the file that the user just uploaded
 from flask import request, redirect, url_for
 from werkzeug.utils import secure_filename
+from DBModels.Data import *
 
 # For a given file, return whether it's an allowed type or not
 def allowed_file(filename, ALLOWED_EXTENSIONS):
@@ -25,12 +26,8 @@ def upload(directoryPath, ALLOWED_EXTENSIONS):
         # the upload folder we setup
 
         file.save(os.path.join(directoryPath, filename))
-        # size = os.stat(os.path.join(directoryPath, filename)).st_size
-        #
-        # print(size)
-        # Redirect the user to the uploaded_file route, which
-        # will basically show on the browser the uploaded file
-        return redirect(url_for('uploaded_file', filename=filename))
+        insertNewData(filename)
+        return redirect(url_for('datacleaning'))
 
 
 

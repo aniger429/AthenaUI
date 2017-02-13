@@ -15,14 +15,6 @@ Data
     <div class="panel panel-default" >
       <div class="panel-heading">Upload Data</div>
       <div class="panel-body">
-{#          <form enctype="multipart/form-data" action = "upload" method = "POST">#}
-{#            <input id="file-0" class="file" type="file" data-min-file-count="1"#}
-{#                   data-overwrite-initial="false">#}
-{#            <br>#}
-{#            <input type="submit" class="btn btn-primary" value="Upload"/>#}
-{#            <button type="reset" class="btn btn-default">Reset</button>#}
-{#          </form>#}
-          {# https://github.com/kartik-v/bootstrap-fileinput #}
           <form action="upload" method="post" enctype="multipart/form-data">
             <input id="file-0" type="file" class="file" name="file"
                    data-min-file-count="1" data-overwrite-initial="true"><br /><br />
@@ -48,14 +40,24 @@ Data
                         <th class="col-md-1">Delete</th>
                     </thead>
                     <tbody>
+                        {% for dataFile in dataFileList %}
                         <tr>
-                            <td>1</td>
-                            <td>Election Data-1</td>
-                            <td>February 14, 2017</td>
-                            <td><a class="btn btn-info" href="#">
-                                    Clean
-                                </a>
+                            <td>{{ dataFile.idData }}</td>
+                            <td>{{ dataFile.filename }}</td>
+                            <td>{{ dataFile.dateCreated }}</td>
+                            <td>
+                                {% if dataFile.isClean == 0 %}
+                                    <a class="btn btn-info" href="#">
+                                            Clean Now!
+                                    </a>
+                                    {% elif dataFile.isClean == 1 %}
+                                    <a class="btn btn-info" href="#" disabled="true">
+                                            Cleaned
+                                    </a>
+                                {% endif %}
                             </td>
+
+
                             <td>
                                 <a class="btn btn-info" href="#">
                                   <i class="fa fa-file-text-o fa-lg fa-fw"></i>
@@ -67,6 +69,7 @@ Data
                                 </a>
                             </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
 
