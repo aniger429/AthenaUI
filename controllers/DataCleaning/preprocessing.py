@@ -1,12 +1,9 @@
 import re
 from collections import Counter
-import pandas as pd
 from Model.UsernameModel import *
 from DBModels.Username import *
+import pandas as pd
 
-
-def readXLSX(filename):
-    return pd.read_excel(filename)
 
 def findUsername(tweet):
     pattern = '@'
@@ -17,7 +14,7 @@ def createInitUsernameList(usernameList):
     usernameDict = {}
 
     for u, value in dict(Counter(usernameList)).items():
-        user = UsernameModel(username = '@'+u, numTweets=value)
+        user = UsernameModel(username='@'+u, numTweets=value)
         usernameDict['@'+u] = user
     return usernameDict
 
@@ -26,7 +23,7 @@ def usernameMentions(usernameDict, newUsernameList):
 
     for nu, value in dict(Counter(newUsernameList)).items():
         if nu not in usernameDict:
-            user = UsernameModel(username = nu, numMentions=value)
+            user = UsernameModel(username=nu, numMentions=value)
             usernameDict[nu] = user
         else:
             usernameDict[nu].numMentions = value
@@ -35,19 +32,17 @@ def usernameMentions(usernameDict, newUsernameList):
 
 def addToDB(usernameList):
     insertNewUsername(usernameList)
-    print ("done inserting to table: username")
+    print("done inserting to table: username")
 
 def filterOutUsernames(usernameList):
-    return  [username for username in usernameList if len(username) < 17]
+    return [username for username in usernameList if len(username) < 17]
 
 
-def processUsernames(file_name):
-    data = readXLSX(file_name)
-
+def processUsernames(dataSource):
     # 1. Get all usernames from the username columns
-    usernameDict = createInitUsernameList(data['Username'])
+    usernameDict = createInitUsernameList(dataSource['Username'])
 
-    Tweets = data['Tweet']
+    Tweets = dataSource['Tweet']
     # 3. Iterate over all Tweet column
     pattern = re.compile("@[a-zA-Z0-9_]+")
     foundUsernameList = []
@@ -55,10 +50,16 @@ def processUsernames(file_name):
     foundUsernameList = filterOutUsernames(foundUsernameList)
     usernameDict = usernameMentions(usernameDict, foundUsernameList)
 
-    # addToDB(usernameDict)
+    addToDB(usernameDict)
+    print("Done processing the username")
 
 
-file_name = "/home/dudegrim/Google Drive/Thesis/Election Data/Election-18.xlsx"
-usernameIDs = getAllUsernames()
-print (usernameIDs)
+# def read_xlsx(filename):
+#     return pd.read_excel(filename, encoding='utf-8')
+#
+#
+# file_name = "/home/dudegrim/Google Drive/Thesis/Election Data/Election-18.xlsx"
+# processUsernames(read_xlsx(file_name))
+# usernameIDs = getAllUsernames()
+# print (usernameIDs)
 

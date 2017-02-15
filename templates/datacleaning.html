@@ -47,7 +47,7 @@ Data
                             <td>{{ dataFile.dateCreated }}</td>
                             <td>
                                 {% if dataFile.isClean == 0 %}
-                                    <a class="btn btn-info" href="#">
+                                    <a class="btn btn-info" href="{{ url_for('clean_file', filename= dataFile.filename) }}">
                                             Clean Now!
                                     </a>
                                     {% elif dataFile.isClean == 1 %}

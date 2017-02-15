@@ -27,7 +27,7 @@ def upload(directoryPath, ALLOWED_EXTENSIONS):
 
         file.save(os.path.join(directoryPath, filename))
         insertNewData(filename)
-        return redirect(url_for('datacleaning'))
+        return redirect(url_for('data_cleaning'))
 
 
 
