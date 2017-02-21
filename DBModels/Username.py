@@ -36,9 +36,16 @@ def insertNewUsername(usernameDict):
     db.close()
 
 
-def getAllUsernames():
+def getAllUsernamesTuple():
     usernameTup = []
     for user in Username.select():
         usernameTup.append((user.username, '@'+str(user.idUsername)))
-
     return usernameTup
+
+def getAllUsernamesDict():
+    usernameDict = {}
+    for user in Username.select():
+        usernameDict[user.username] = '@' + str(user.idUsername)
+
+    return usernameDict
+

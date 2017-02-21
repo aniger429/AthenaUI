@@ -6,6 +6,7 @@ from controllers.DataCleaning import preprocessing
 from functools import reduce
 from DBModels.Username import *
 import os
+import time
 
 script_path = os.path.dirname(os.path.dirname(__file__))
 file_path = os.path.join(script_path, "stop_words")
@@ -21,7 +22,7 @@ dictionary = dict(zip(contractions[0].tolist(), contractions[1].tolist()))
 
 c_re = re.compile('(%s)' % '|'.join(dictionary.keys()))
 
-nameTuple = getAllUsernames()
+nameTuple = getAllUsernamesTuple()
 
 
 def read_xlsx(filename):
@@ -59,10 +60,15 @@ def data_cleaning (tweet):
     # standardize words # collapse to 2
     # tweet = re.sub(r'(.)\1+', r'\1\1', tweet)
 
-    print("After:"+ tweet)
+    # print("After:"+ tweet)
 
     return tweet
 
+def anonymizePosterUsername(usernameList):
+    usernameDict = getAllUsernamesDict()
+    usernameList = [usernameDict['@'+u] for u in usernameList]
+
+    return usernameList
 
 def write_csv(filename, cleanedTweets):
     # out = csv.writer(open("/home/dudegrim/Documents/"+filename, "w"), delimiter='\r')
@@ -74,15 +80,23 @@ def cleaning_file(file_name):
     dataSource = read_xlsx(file_name)
     # add usernames to DB
     # preprocessing.processUsernames(dataSource)
-    rawTweets = dataSource['Tweet'][:20]
+
+    rawTweets = dataSource['Tweet']
     cleanedTweets = []
     [cleanedTweets.append(data_cleaning(t)) for t in rawTweets]
-    d = {'Tweets': cleanedTweets, 'dateCreated':dataSource['Date Created'], 'idUsername':}
-    df = pd.DataFrame(data=cleanedTweets, index=None)
-    # writeCSV("CleanedTweets.xlsx",df)
 
-    for x in df:
-        print(x)
+    d = {'Tweets': cleanedTweets,
+         'dateCreated': dataSource['Date Created'],
+         'idUsername': anonymizePosterUsername(dataSource['Username'])}
+
+    df = pd.DataFrame(data=d, index=None)
+    df.to_excel("CleanedTweets.xlsx", index=False, header=['Tweets','Date Created', 'idUsername'])
+
+
 
 file_name = "/home/dudegrim/Google Drive/Thesis/Election Data/Election-18.xlsx"
+
+start = time.time()
 cleaning_file(file_name)
+end = time.time()
+print(end - start)

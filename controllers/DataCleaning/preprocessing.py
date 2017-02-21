@@ -50,7 +50,7 @@ def processUsernames(dataSource):
     foundUsernameList = filterOutUsernames(foundUsernameList)
     usernameDict = usernameMentions(usernameDict, foundUsernameList)
 
-    addToDB(usernameDict)
+    # addToDB(usernameDict)
     print("Done processing the username")
 
 
